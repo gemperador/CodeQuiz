@@ -1,73 +1,96 @@
-const quizData = [
-  {
-    question: "What does HTML stand for?",
-    options: ["1. Hyper Text Markup Language", "2. Hyperlinks and Text Markup Language", "3. Home Tool Markup Language", "4. Home Tool Markup Language"],
-    answer: "1. Hyper Text Markup Language"
-  },
-  {
-    question: "What does CSS stand for?",
-    options: ["1. Creative Style Sheets", "2. Cascading Style Sheets", "3. Computer Style Sheets", "4. Computer Style Sheets"],
-    answer: "2. Cascading Style Sheets"
-  },
-  {
-    question: "What is the purpose of the SQL language?",
-    options: ["1. To style web pages", "2. To create dynamic web content", "3. To query and manipulate databases", "4. To define the structure of a webpage"],
-    answer: "2. Cascading Style Sheets"
-  },
-  {
-    question: "Which of the following is a backend framework for JavaScript??",
-    options: ["1. React", "2. Angular", "3. Express","4. Vue"],
-    answer: "3. Express"
-  },
-  {
-    question: "Which of the following is not a programming language??",
-    options: ["1. Python", "2. CSS", "3. Java", "4. Ruby"],
-    answer: "3. Ruby"
-  },
-];
+document.addEventListener("DOMContentLoaded", function() {
+  const timerElement = document.getElementById("timer");
+  const questionElement = document.getElementById("question");
+  const optionsElement = document.getElementById("options");
+  const submitButton = document.getElementById("submit");
+  
+  const quizData = [
+    {
+      question: "What does HTML stand for?",
+      options: ["1. Hyper Text Markup Language", "2. Hyperlinks and Text Markup Language", "3. Home Tool Markup Language", "4. Home Tool Markup Language"],
+      answer: "1. Hyper Text Markup Language"
+    },
+    {
+      question: "What does CSS stand for?",
+      options: ["1. Creative Style Sheets", "2. Cascading Style Sheets", "3. Computer Style Sheets", "4. Computer Style Sheets"],
+      answer: "2. Cascading Style Sheets"
+    },
+    {
+      question: "What is the purpose of the SQL language?",
+      options: ["1. To style web pages", "2. To create dynamic web content", "3. To query and manipulate databases", "4. To define the structure of a webpage"],
+      answer: "3. To query and manipulate databases"
+    },
+    {
+      question: "Which of the following is a backend framework for JavaScript?",
+      options: ["1. React", "2. Angular", "3. Express", "4. Vue"],
+      answer: "3. Express"
+    },
+    {
+      question: "Which of the following is not a programming language?",
+      options: ["1. Python", "2. CSS", "3. Java", "4. Ruby"],
+      answer: "2. CSS"
+    },
+  ];
 
-const questionElement = document.getElementById("question");
-const optionsElement = document.getElementById("options");
-const submitButton = document.getElementById("submit");
+  let currentQuestion = 0;
+  let score = 0;
+  let timeLeft = 60;
 
-let currentQuestion = 0;
-let score = 0;
+  const countdown = setInterval(() => {
+    timeLeft--;
+    timerElement.textContent = timeLeft;
 
-function showQuestion() {
-  const question = quizData[currentQuestion];
-  questionElement.innerText = question.question;
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      alert("Time's up!");
+      showResult();
+    }
+  }, 1000);
 
-  optionsElement.innerHTML = "";
-  question.options.forEach(option => {
-    const button = document.createElement("button");
-    button.innerText = option;
-    optionsElement.appendChild(button);
-    button.addEventListener("click", selectAnswer);
-  });
-}
+  function showQuestion() {
+    const question = quizData[currentQuestion];
+    questionElement.innerText = question.question;
 
-function selectAnswer(e) {
-  const selectedButton = e.target;
-  const answer = quizData[currentQuestion].answer;
-
-  if (selectedButton.innerText === answer) {
-    score++;
+    optionsElement.innerHTML = "";
+    question.options.forEach(option => {
+      const button = document.createElement("button");
+      button.innerText = option;
+      optionsElement.appendChild(button);
+      button.addEventListener("click", selectAnswer);
+    });
   }
 
-  currentQuestion++;
+  function selectAnswer(e) {
+    const selectedButton = e.target;
+    const answer = quizData[currentQuestion].answer;
 
-  if (currentQuestion < quizData.length) {
-    showQuestion();
-  } else {
-    showResult();
+    if (selectedButton.innerText === answer) {
+      score++;
+    } else {
+      timeLeft -= 10;
+      if (timeLeft < 0) {
+        timeLeft = 0;
+      }
+      timerElement.textContent = timeLeft;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < quizData.length) {
+      showQuestion();
+    } else {
+      clearInterval(countdown);
+      showResult();
+    }
   }
-}
 
-function showResult() {
-  quiz.innerHTML = `
-    <h1>Quiz Completed!</h1>
-    <p>Your score: ${score}/${quizData.length}</p>
-  `;
-}
+  function showResult() {
+    const quizElement = document.getElementById("quiz");
+    quizElement.innerHTML = `
+      <h1>Quiz Completed!</h1>
+      <p>Your score: ${score}/${quizData.length}</p>
+    `;
+  }
 
-showQuestion();
+  showQuestion();
+});

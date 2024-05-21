@@ -11,7 +11,17 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(198, 222, 60, 0.2);
 }
-
+.timer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+}
 h1 {
   text-align: center;
   color: #333333;
