@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const submitButton = document.getElementById("submit");
   
   // Define the quiz questions and answers
+  /*
+  I used the javascript code as a guide to format my own code for questions
+  https://medium.com/@codepicker57/building-an-interactive-quiz-with-html-css-and-javascript-efe9bd8129e2
+ */
   const quizData = [
     {
       question: "What does HTML stand for?",
@@ -49,8 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
       showResult();
     }
   }, 1000);
-
-
 
   // Function to display the current question and options
   function showQuestion() {
