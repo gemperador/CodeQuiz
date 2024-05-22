@@ -50,14 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }, 1000);
 
-  function resetQuiz() {
-    currentQuestion = 0;
-    score = 0;
-    timeLeft = 60;
-    timerElement.textContent = timeLeft;
-    startTimer();
-    showQuestion();
-  }
+
 
   // Function to display the current question and options
   function showQuestion() {
