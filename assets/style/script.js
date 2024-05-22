@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
+  // Elements needed for the DOM
   const timerElement = document.getElementById("timer");
   const questionElement = document.getElementById("question");
   const optionsElement = document.getElementById("options");
   const submitButton = document.getElementById("submit");
   
+  // Define the quiz questions and answers
   const quizData = [
     {
       question: "What does HTML stand for?",
@@ -36,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let score = 0;
   let timeLeft = 60;
 
+  // Start timer countdown
   const countdown = setInterval(() => {
     timeLeft--;
     timerElement.textContent = timeLeft;
@@ -47,6 +50,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }, 1000);
 
+  function resetQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    timeLeft = 60;
+    timerElement.textContent = timeLeft;
+    startTimer();
+    showQuestion();
+  }
+
+  // Function to display the current question and options
   function showQuestion() {
     const question = quizData[currentQuestion];
     questionElement.innerText = question.question;
@@ -84,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  // Function to display the quiz results
   function showResult() {
     const quizElement = document.getElementById("quiz");
     quizElement.innerHTML = `
